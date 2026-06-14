@@ -1,22 +1,22 @@
 /* ============================================================
    SCHOLARSHIP FOUNDATION — Main JavaScript
    ============================================================ */
-
+ 
 document.addEventListener('DOMContentLoaded', function () {
-
+ 
   /* ======================================================
      1. MOBILE NAVIGATION TOGGLE
   ====================================================== */
   const navToggle = document.getElementById('navToggle');
   const navLinks  = document.getElementById('navLinks');
-
+ 
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', function () {
       const open = navLinks.classList.toggle('open');
       navToggle.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', open);
     });
-
+ 
     // Close on nav link click
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navToggle.setAttribute('aria-expanded', 'false');
       });
     });
-
+ 
     // Close on outside click
     document.addEventListener('click', function (e) {
       if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
-
+ 
+ 
   /* ======================================================
      2. SCROLL ANIMATIONS (Intersection Observer)
   ====================================================== */
   const animatedEls = document.querySelectorAll('.fade-up, .fade-up-stagger');
-
+ 
   if (animatedEls.length && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
+ 
     animatedEls.forEach(function (el) { observer.observe(el); });
   } else {
     // Fallback: show all
     animatedEls.forEach(function (el) { el.classList.add('visible'); });
   }
-
-
+ 
+ 
   /* ======================================================
      3. ACTIVE NAV LINK (highlight current page)
   ====================================================== */
@@ -69,13 +69,13 @@ document.addEventListener('DOMContentLoaded', function () {
       link.classList.add('active');
     }
   });
-
-
+ 
+ 
   /* ======================================================
      4. APPLICATION FORM — Multi-step & Validation
   ====================================================== */
   const applicationForm = document.getElementById('applicationForm');
-
+ 
   if (applicationForm) {
     const steps       = Array.from(document.querySelectorAll('.form-step'));
     const progressDots = Array.from(document.querySelectorAll('.progress-step'));
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitBtn   = document.getElementById('submitForm');
     const stepIndicator = document.getElementById('stepIndicator');
     let currentStep   = 0;
-
+ 
     // Show correct step
     function showStep(index) {
       steps.forEach(function (s, i) {
@@ -103,16 +103,20 @@ document.addEventListener('DOMContentLoaded', function () {
       if (nextBtn) nextBtn.style.display = index < steps.length - 1 ? '' : 'none';
       if (submitBtn) submitBtn.style.display = index === steps.length - 1 ? '' : 'none';
     }
-
+ 
     // Validate a single step's required fields
     function validateStep(index) {
       const step = steps[index];
-      const fields = step.querySelectorAll('[required]');
       let valid = true;
-
-      fields.forEach(function (field) {
+ 
+      // --- Text / email / tel / select / textarea fields ---
+      step.querySelectorAll('input[required], select[required], textarea[required]').forEach(function (field) {
+        // Skip checkboxes and radios — handled separately below
+        if (field.type === 'checkbox' || field.type === 'radio') return;
+ 
         const group = field.closest('.form-group');
         clearError(group);
+ 
         if (!field.value.trim()) {
           showError(group, field, 'This field is required.');
           valid = false;
@@ -124,20 +128,36 @@ document.addEventListener('DOMContentLoaded', function () {
           valid = false;
         }
       });
-
-      // Check at least one checkbox in checkbox groups
-      step.querySelectorAll('.checkbox-group[data-required="true"]').forEach(function (group) {
-        const checked = group.querySelector('input[type="checkbox"]:checked');
-        const wrap = group.closest('.form-group');
-        if (!checked) {
-          showError(wrap, null, 'Please select at least one option.');
+ 
+      // --- Radio groups: at least one must be selected ---
+      var radioGroupsSeen = {};
+      step.querySelectorAll('input[type="radio"][required]').forEach(function (radio) {
+        var name = radio.name;
+        if (radioGroupsSeen[name]) return; // only check each group once
+        radioGroupsSeen[name] = true;
+ 
+        var anyChecked = step.querySelector('input[type="radio"][name="' + name + '"]:checked');
+        var group = radio.closest('.form-group');
+        clearError(group);
+        if (!anyChecked) {
+          showError(group, null, 'Please select one of the options above.');
           valid = false;
         }
       });
-
+ 
+      // --- Checkbox groups: every required checkbox must be checked ---
+      step.querySelectorAll('input[type="checkbox"][required]').forEach(function (checkbox) {
+        var group = checkbox.closest('.form-group');
+        clearError(group);
+        if (!checkbox.checked) {
+          showError(group, null, 'Please check this box to continue.');
+          valid = false;
+        }
+      });
+ 
       return valid;
     }
-
+ 
     function showError(group, field, msg) {
       if (!group) return;
       group.classList.add('has-error');
@@ -145,17 +165,17 @@ document.addEventListener('DOMContentLoaded', function () {
       const errEl = group.querySelector('.error-msg');
       if (errEl) errEl.textContent = msg;
     }
-
+ 
     function clearError(group) {
       if (!group) return;
       group.classList.remove('has-error');
       group.querySelectorAll('.error').forEach(function (el) { el.classList.remove('error'); });
     }
-
+ 
     function isValidEmail(val) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
     }
-
+ 
     // Next button
     if (nextBtn) {
       nextBtn.addEventListener('click', function () {
@@ -168,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
-
+ 
     // Prev button
     if (prevBtn) {
       prevBtn.addEventListener('click', function () {
@@ -177,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo({ top: applicationForm.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
       });
     }
-
+ 
     // Submit
     if (submitBtn) {
       submitBtn.addEventListener('click', function (e) {
@@ -186,16 +206,16 @@ document.addEventListener('DOMContentLoaded', function () {
           showToast('Please fill in all required fields.', 'error');
           return;
         }
-
+ 
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
-
+ 
         // Simulate sending email via Formspree (replace ACTION_URL with your Formspree endpoint)
         const formData = new FormData(applicationForm);
-
+ 
         const actionUrl = applicationForm.getAttribute('action');
-
+ 
         if (actionUrl && actionUrl !== '#') {
           fetch(actionUrl, {
             method: 'POST',
@@ -222,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
-
+ 
     function showSuccessMessage() {
       const formContent = document.getElementById('formContent');
       const successMsg  = document.getElementById('successMessage');
@@ -230,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (successMsg)  successMsg.style.display  = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
+ 
     // File upload display
     document.querySelectorAll('input[type="file"]').forEach(function (input) {
       input.addEventListener('change', function () {
@@ -242,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-
+ 
     // Drag and drop visual
     document.querySelectorAll('.file-upload').forEach(function (zone) {
       zone.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('dragover'); });
@@ -257,26 +277,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     });
-
+ 
     // Init
     showStep(0);
   }
-
-
+ 
+ 
   /* ======================================================
      5. CONTACT FORM
   ====================================================== */
   const contactForm = document.getElementById('contactForm');
-
+ 
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const btn = contactForm.querySelector('[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Sending…';
-
+ 
       const actionUrl = contactForm.getAttribute('action');
-
+ 
       if (actionUrl && actionUrl !== '#') {
         fetch(actionUrl, {
           method: 'POST',
@@ -306,35 +326,35 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
-
+ 
+ 
   /* ======================================================
      6. TOAST NOTIFICATION
   ====================================================== */
   function showToast(message, type) {
     const existing = document.querySelector('.toast');
     if (existing) existing.remove();
-
+ 
     const toast = document.createElement('div');
     toast.className = 'toast toast--' + (type || 'success');
     const icon = type === 'error' ? '⚠️' : '✅';
     toast.innerHTML = '<span>' + icon + '</span><span>' + message + '</span>';
     document.body.appendChild(toast);
-
+ 
     requestAnimationFrame(function () {
       requestAnimationFrame(function () { toast.classList.add('show'); });
     });
-
+ 
     setTimeout(function () {
       toast.classList.remove('show');
       setTimeout(function () { toast.remove(); }, 500);
     }, 4000);
   }
-
+ 
   // Expose globally for inline use
   window.showToast = showToast;
-
-
+ 
+ 
   /* ======================================================
      7. SMOOTH ANCHOR SCROLLING
   ====================================================== */
@@ -348,8 +368,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-
-
+ 
+ 
   /* ======================================================
      8. NAVBAR SCROLL SHADOW
   ====================================================== */
@@ -359,5 +379,5 @@ document.addEventListener('DOMContentLoaded', function () {
       navbar.style.boxShadow = window.scrollY > 16 ? '0 2px 20px rgba(13,27,62,0.12)' : '';
     }, { passive: true });
   }
-
+ 
 });
