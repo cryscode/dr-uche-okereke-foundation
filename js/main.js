@@ -77,6 +77,22 @@ document.addEventListener('DOMContentLoaded', function () {
   const applicationForm = document.getElementById('applicationForm');
 
   if (applicationForm) {
+
+    // ====================================================
+    // APPLICATION DEADLINE — edit this one line to change it
+    // Format: 'YYYY-MM-DDTHH:MM:SS+01:00'  (+01:00 = WAT, Nigeria time)
+    // ====================================================
+    const APPLICATION_DEADLINE = '2026-07-31T23:59:00+01:00';
+
+    const deadlinePassed = new Date() > new Date(APPLICATION_DEADLINE);
+
+    if (deadlinePassed) {
+      const formContent   = document.getElementById('formContent');
+      const closedMessage = document.getElementById('closedMessage');
+      if (formContent)   formContent.style.display = 'none';
+      if (closedMessage) closedMessage.style.display = '';
+    }
+
     const steps       = Array.from(document.querySelectorAll('.form-step'));
     const progressDots = Array.from(document.querySelectorAll('.progress-step'));
     const prevBtn     = document.getElementById('prevStep');
@@ -241,6 +257,17 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitBtn) {
       submitBtn.addEventListener('click', function (e) {
         e.preventDefault();
+
+        // Re-check the deadline at submit time too, in case the page
+        // was left open and the deadline passed mid-session
+        if (new Date() > new Date(APPLICATION_DEADLINE)) {
+          const formContent   = document.getElementById('formContent');
+          const closedMessage = document.getElementById('closedMessage');
+          if (formContent)   formContent.style.display = 'none';
+          if (closedMessage) closedMessage.style.display = '';
+          return;
+        }
+
         if (!validateStep(currentStep)) {
           showToast('Please fill in all required fields.', 'error');
           return;
