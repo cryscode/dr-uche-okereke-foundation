@@ -273,6 +273,12 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
+        // Validate required uploads
+        if (!validateUploads()) {
+          showToast('Please upload all required documents before submitting.', 'error');
+          return;
+        }
+
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
@@ -319,32 +325,58 @@ document.addEventListener('DOMContentLoaded', function () {
       launchConfetti();
     }
 
-    // File upload display
-    document.querySelectorAll('input[type="file"]').forEach(function (input) {
-      input.addEventListener('change', function () {
-        const display = this.closest('.form-group').querySelector('.file-name-display');
-        if (display) {
-          display.textContent = this.files.length
-            ? '📎 ' + Array.from(this.files).map(function (f) { return f.name; }).join(', ')
-            : '';
-        }
-      });
-    });
+    // --- Uploadcare widgets ---
+    // Map each widget input id → the hidden field that stores its CDN URL
+    var ucWidgets = {
+      'uc-admission': { hiddenId: 'ucAdmissionUrl', required: true,  groupId: 'grp-admission' },
+      'uc-academic':  { hiddenId: 'ucAcademicUrl',  required: true,  groupId: 'grp-academic'  },
+      'uc-hardship':  { hiddenId: 'ucHardshipUrl',  required: true,  groupId: 'grp-hardship'  },
+      'uc-id':        { hiddenId: 'ucIdUrl',         required: false, groupId: 'grp-id'        },
+      'uc-passport':  { hiddenId: 'ucPassportUrl',  required: true,  groupId: 'grp-passport'  },
+    };
 
-    // Drag and drop visual
-    document.querySelectorAll('.file-upload').forEach(function (zone) {
-      zone.addEventListener('dragover', function (e) { e.preventDefault(); this.classList.add('dragover'); });
-      zone.addEventListener('dragleave', function () { this.classList.remove('dragover'); });
-      zone.addEventListener('drop', function (e) {
-        e.preventDefault();
-        this.classList.remove('dragover');
-        const input = this.querySelector('input[type="file"]');
-        if (input && e.dataTransfer.files.length) {
-          input.files = e.dataTransfer.files;
-          input.dispatchEvent(new Event('change'));
+    if (typeof uploadcare !== 'undefined') {
+      Object.keys(ucWidgets).forEach(function (inputId) {
+        var cfg    = ucWidgets[inputId];
+        var widget = uploadcare.Widget('[id="' + inputId + '"]');
+        if (!widget) return;
+
+        widget.onChange(function (file) {
+          if (file) {
+            file.promise().then(function (info) {
+              var hidden = document.getElementById(cfg.hiddenId);
+              if (hidden) hidden.value = info.cdnUrl;
+              // clear any error on the group
+              var grp = document.getElementById(cfg.groupId);
+              if (grp) { grp.classList.remove('has-error'); var e = grp.querySelector('.error-msg'); if (e) e.textContent = ''; }
+            });
+          } else {
+            var hidden = document.getElementById(cfg.hiddenId);
+            if (hidden) hidden.value = '';
+          }
+        });
+      });
+    }
+
+    // Validate that required Uploadcare uploads are done (called inside validateStep for step 3 = index 3)
+    function validateUploads() {
+      var valid = true;
+      Object.keys(ucWidgets).forEach(function (inputId) {
+        var cfg = ucWidgets[inputId];
+        if (!cfg.required) return;
+        var hidden = document.getElementById(cfg.hiddenId);
+        var grp    = document.getElementById(cfg.groupId);
+        if (!hidden || !hidden.value) {
+          valid = false;
+          if (grp) {
+            grp.classList.add('has-error');
+            var errEl = grp.querySelector('.error-msg');
+            if (errEl) errEl.textContent = 'Please upload this document before submitting.';
+          }
         }
       });
-    });
+      return valid;
+    }
 
     // Init
     showStep(0);
