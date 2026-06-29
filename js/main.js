@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var emailField   = document.getElementById('email');
     var replyToField = document.getElementById('_replyto');
     if (emailField && replyToField) {
-      emailField.addEventListener('input', function () {
-        replyToField.value = this.value;
-      });
+      function syncReplyTo() { replyToField.value = emailField.value; }
+      emailField.addEventListener('input',  syncReplyTo);
+      emailField.addEventListener('change', syncReplyTo); // catches browser autofill
     }
 
 
@@ -187,11 +187,41 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (field.type === 'email' && !isValidEmail(field.value)) {
           showError(group, field, 'Please enter a valid email address.');
           valid = false;
-        } else if (field.type === 'tel' && field.value.trim().length < 7) {
-          showError(group, field, 'Please enter a valid phone number.');
+        } else if (field.type === 'tel' && !/^\+?\d{7,15}$/.test(field.value.replace(/\s+/g, ''))) {
+          showError(group, field, 'Please enter a valid phone number (digits only, 7–15 digits).');
           valid = false;
+        } else if (field.id === 'personalStatement') {
+          // Word count: must be between 1,000 and 1,500 words
+          var wc = field.value.trim().split(/\s+/).filter(Boolean).length;
+          if (wc < 1000) {
+            showError(group, field, 'Your personal statement is too short (' + wc + ' words). Minimum is 1,000 words.');
+            valid = false;
+          } else if (wc > 1500) {
+            showError(group, field, 'Your personal statement is too long (' + wc + ' words). Maximum is 1,500 words.');
+            valid = false;
+          }
         }
       });
+
+      // --- Date of Birth: required + age must be 17-25 ---
+      // Runs on every step but only activates when the DOB field is in the current step.
+      if (dobDay && step.contains(dobDay)) {
+        var dobGroup = dobDay.closest('.form-group');
+        if (dobGroup) clearError(dobGroup);
+
+        if (!dobHidden || !dobHidden.value) {
+          // User hasn't selected all three dropdowns yet
+          if (dobGroup) showError(dobGroup, null, 'Please select your full date of birth.');
+          valid = false;
+        } else {
+          var dobDate  = new Date(dobHidden.value);
+          var ageYears = (new Date() - dobDate) / (365.25 * 24 * 60 * 60 * 1000);
+          if (ageYears < 17 || ageYears > 25) {
+            if (dobGroup) showError(dobGroup, null, 'You must be between 17 and 25 years old at the time of application.');
+            valid = false;
+          }
+        }
+      }
 
       // --- Radio groups: at least one must be selected ---
       var radioGroupsSeen = {};
@@ -292,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
 
-        // Simulate sending email via Formspree (replace ACTION_URL with your Formspree endpoint)
+        // Build form data and submit to Web3Forms
         const formData = new FormData(applicationForm);
 
         const actionUrl = applicationForm.getAttribute('action');
@@ -304,23 +334,25 @@ document.addEventListener('DOMContentLoaded', function () {
             body: formData,
             headers: { 'Accept': 'application/json' }
           })
-          .then(function (res) {
-            if (res.ok) {
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.success) {
               showSuccessMessage();
             } else {
-              throw new Error('Server error');
+              throw new Error('Rejected by server');
             }
           })
           .catch(function () {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Application';
-            showToast('Something went wrong. Please try again or email us directly.', 'error');
+            showToast('Something went wrong. Please try again or email us at contact@docucfoundation.org', 'error');
           });
         } else {
-          // No Formspree URL set yet — show success screen (demo / pre-launch mode)
-          setTimeout(function () {
-            showSuccessMessage();
-          }, 1000);
+          // Form endpoint is not configured — surface the error immediately rather than
+          // silently swallowing submissions.
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Application';
+          showToast('Form is not configured correctly. Please contact us at contact@docucfoundation.org', 'error');
         }
       });
     }
@@ -330,6 +362,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const successMsg  = document.getElementById('successMessage');
       if (formContent) formContent.style.display = 'none';
       if (successMsg)  successMsg.style.display  = 'block';
+      // Reset button state so navigating back doesn't leave it disabled
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       launchConfetti();
     }
@@ -358,6 +395,19 @@ document.addEventListener('DOMContentLoaded', function () {
               // clear any error on the group
               var grp = document.getElementById(cfg.groupId);
               if (grp) { grp.classList.remove('has-error'); var e = grp.querySelector('.error-msg'); if (e) e.textContent = ''; }
+            }).catch(function () {
+              // Upload was cancelled or failed — clear the hidden field so validation
+              // correctly catches it and prompts the user to re-upload.
+              var hidden = document.getElementById(cfg.hiddenId);
+              if (hidden) hidden.value = '';
+              // Show error on the group so the user knows immediately
+              var grp = document.getElementById(cfg.groupId);
+              if (grp) {
+                grp.classList.add('has-error');
+                var errEl = grp.querySelector('.error-msg');
+                if (errEl) errEl.textContent = 'Upload failed or was cancelled. Please try again.';
+              }
+              showToast('A document upload failed. Please re-upload before submitting.', 'error');
             });
           } else {
             var hidden = document.getElementById(cfg.hiddenId);
@@ -369,6 +419,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validate that required Uploadcare uploads are done (called inside validateStep for step 3 = index 3)
     function validateUploads() {
+      // If the Uploadcare CDN failed to load (network issue, blocked script, etc.)
+      // we cannot show upload widgets at all. Rather than permanently blocking every
+      // applicant, we skip upload validation and let them submit — the confirmation
+      // email will instruct them to send documents separately (see contact page).
+      if (typeof uploadcare === 'undefined') {
+        showToast('Upload widgets could not load. Please email your documents to contact@docucfoundation.org', 'error');
+        // Return true so the form is not hard-blocked — submission still goes through.
+        return true;
+      }
+
       var valid = true;
       Object.keys(ucWidgets).forEach(function (inputId) {
         var cfg = ucWidgets[inputId];
@@ -385,6 +445,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
       return valid;
+    }
+
+    // --- Live word counter for personal statement ---
+    var psField   = document.getElementById('personalStatement');
+    var wcDisplay = document.getElementById('wordCountDisplay');
+    var wcHint    = document.getElementById('wordCountHint');
+    if (psField && wcDisplay) {
+      psField.addEventListener('input', function () {
+        var words = psField.value.trim().split(/\s+/).filter(Boolean).length;
+        wcDisplay.textContent = words + ' word' + (words !== 1 ? 's' : '');
+        // Colour feedback
+        if (words < 1000) {
+          wcDisplay.style.color = words > 800 ? '#f59e0b' : 'var(--text-muted)'; // amber warning when close
+        } else if (words > 1500) {
+          wcDisplay.style.color = '#ef4444'; // red over limit
+        } else {
+          wcDisplay.style.color = '#22c55e'; // green in range
+        }
+      });
     }
 
     // Init
@@ -412,26 +491,27 @@ document.addEventListener('DOMContentLoaded', function () {
           body: new FormData(contactForm),
           headers: { 'Accept': 'application/json' }
         })
-        .then(function (res) {
-          if (res.ok) {
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.success) {
             showToast('Message sent! We\'ll be in touch soon.', 'success');
             contactForm.reset();
-          } else throw new Error();
+          } else {
+            throw new Error('Rejected');
+          }
         })
         .catch(function () {
-          showToast('Could not send. Please email us directly.', 'error');
+          showToast('Could not send. Please email us at contact@docucfoundation.org', 'error');
         })
         .finally(function () {
           btn.disabled = false;
-          btn.textContent = 'Send Message';
+          btn.textContent = 'Send Message →';
         });
       } else {
-        setTimeout(function () {
-          showToast('Message sent! We\'ll be in touch soon.', 'success');
-          contactForm.reset();
-          btn.disabled = false;
-          btn.textContent = 'Send Message';
-        }, 1200);
+        // Contact form endpoint not configured — show a real error, not a fake success.
+        btn.disabled = false;
+        btn.textContent = 'Send Message →';
+        showToast('Form not configured. Please email us at contact@docucfoundation.org', 'error');
       }
     });
   }
@@ -469,7 +549,9 @@ document.addEventListener('DOMContentLoaded', function () {
   ====================================================== */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      var href = this.getAttribute('href');
+      if (!href || href === '#') return; // bare # — let the browser handle it (no-op)
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
