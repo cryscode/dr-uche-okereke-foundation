@@ -195,6 +195,14 @@ p { font-size: 1rem; color: var(--text-body); }
   background: var(--lavender);
 }
 .nav-links .btn { margin-left: 8px; padding: 10px 22px; font-size: 0.85rem; }
+.nav-links a.btn--primary,
+.nav-links a.btn--primary:hover,
+.nav-links a.btn--primary:active,
+.nav-links a.btn--primary:focus,
+.nav-links a.btn--primary.active {
+  color: var(--white) !important;
+  background: var(--vivid-purple);
+}
 
 .nav-toggle {
   display: none;
@@ -910,15 +918,20 @@ p { font-size: 1rem; color: var(--text-body); }
     background: white;
     flex-direction: column;
     align-items: stretch;
-    padding: 20px 24px 28px;
+    padding: 16px 24px 24px;
     border-bottom: 1px solid var(--border);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    transform: translateY(-120%);
+    transform: translateY(calc(-100% - var(--nav-height) - 12px));
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
   }
   .nav-links.open { transform: translateY(0); }
-  .nav-links a { padding: 10px 4px; border-radius: 0; border-bottom: 1px solid var(--border); }
+  .nav-links a:not(.btn) { padding: 10px 4px; border-radius: 0; border-bottom: 1px solid var(--border); }
+  .nav-links a.btn--primary,
+  .nav-links a.btn--primary:hover,
+  .nav-links a.btn--primary:active,
+  .nav-links a.btn--primary:focus { color: var(--white) !important; margin-left: 0; margin-top: 8px; }
   .nav-links a:last-child { border-bottom: none; }
   .nav-links .btn { margin: 12px 0 0; width: 100%; justify-content: center; }
   .nav-toggle { display: flex; }
@@ -940,6 +953,12 @@ p { font-size: 1rem; color: var(--text-body); }
   .section { padding: 64px 0; }
   .hero__stats { gap: 28px; }
   .process-steps::before { display: none; }
+  .process-steps { gap: 36px; margin-top: 40px; }
+  .step { padding: 0 16px; }
+  .step__num { width: 52px; height: 52px; font-size: 1.1rem; margin-bottom: 16px; box-shadow: 0 0 0 4px var(--white), 0 0 0 6px var(--lavender); }
+  .btn-row { flex-direction: column; align-items: stretch; }
+  .btn-row .btn { width: 100%; justify-content: center; }
+  .donate-methods { grid-template-columns: 1fr !important; }
   .form-row { grid-template-columns: 1fr; }
   .dob-row { grid-template-columns: 0.75fr 1.3fr 0.95fr; gap: 6px; }
   .dob-row select { padding-left: 10px; padding-right: 28px; background-position: right 8px center; font-size: 0.85rem; }
