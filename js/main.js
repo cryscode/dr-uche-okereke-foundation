@@ -456,9 +456,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var words = psField.value.trim().split(/\s+/).filter(Boolean).length;
         wcDisplay.textContent = words + ' word' + (words !== 1 ? 's' : '');
         // Colour feedback
-        if (words < 1000) {
-          wcDisplay.style.color = words > 800 ? '#f59e0b' : 'var(--text-muted)'; // amber warning when close
-        } else if (words > 1500) {
+        if (words < 600) {
+          wcDisplay.style.color = words > 500 ? '#f59e0b' : 'var(--text-muted)'; // amber warning when close
+        } else if (words > 800) {
           wcDisplay.style.color = '#ef4444'; // red over limit
         } else {
           wcDisplay.style.color = '#22c55e'; // green in range
