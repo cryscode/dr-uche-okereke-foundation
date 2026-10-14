@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 statusEl.classList.remove('failed');
                 statusEl.classList.add('uploaded');
               }
-              btn.textContent = '📎 Replace File';
+              btn.textContent = 'Replace File';
 
               // Clear any error on the group
               if (grp) {
@@ -567,8 +567,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const toast = document.createElement('div');
     toast.className = 'toast toast--' + (type || 'success');
-    const icon = type === 'error' ? '⚠️' : '✅';
-    toast.innerHTML = '<span>' + icon + '</span><span>' + message + '</span>';
+    toast.innerHTML = '<span>' + message + '</span>';
     document.body.appendChild(toast);
 
     requestAnimationFrame(function () {

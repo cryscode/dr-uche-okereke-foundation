@@ -1039,3 +1039,9 @@ p { font-size: 1rem; color: var(--text-body); }
 .awardee-soon { text-align:center; max-width:560px; margin:0 auto; padding:56px 32px; background:var(--white); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow); }
 .awardee-soon__icon { font-size:3rem; margin-bottom:16px; }
 .awardee-card__community { font-size:.8rem; color:var(--text-muted); margin-bottom:10px; }
+
+/* ---------- Line icons (replace emoji) ---------- */
+.icon { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: -0.15em; color: var(--vivid-purple); }
+.icon--inherit { color: inherit; }
+.mission-strip .icon { color: var(--white); }
+.awardee-card__community .icon { color: var(--text-muted); }
