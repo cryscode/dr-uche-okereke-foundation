@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apply — Dr. Uche Okereke Youth Educational Scholarship</title>
-  <meta property="og:site_name" content="Dr. Uche Okereke Foundation">
-  <meta name="description" content="Apply for the Dr. Uche Okereke Youth Educational Scholarship. Deadline: September 30, 2026." />
+  <title>Applications Closed | Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation</title>
+  <meta property="og:site_name" content="Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation">
+  <meta name="description" content="The 2026 application window has closed. Thank you to everyone who applied. Awardees are announced October 15, 2026." />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <!-- Bytescale Upload Widget -->
-  <script src="https://js.bytescale.com/upload-widget/v4"></script>
 </head>
 <body>
 
@@ -28,539 +26,37 @@
         <li><a href="/scholarship">Scholarship</a></li>
         <li><a href="/donate">Donate</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/application" class="btn btn--primary active">Apply now</a></li>
+        <li><a href="/awardees" class="btn btn--primary">2026 Awardees</a></li>
       </ul>
     </div>
   </nav>
 
-  <!--
-    =====================================================================
-    EMAIL SETUP — READ THIS BEFORE GOING LIVE
-    =====================================================================
-    This form uses Formspree (https://formspree.io) — a free service that
-    emails every application submission directly to you.
 
-    SETUP (5 minutes):
-    1. Go to https://formspree.io and sign up (free)
-    2. Click "New Form" → give it a name → copy the endpoint URL
-       e.g.  https://formspree.io/f/xyzabcde
-    3. In the <form> tag below, replace  action="#"  with your URL:
-       action="https://formspree.io/f/xyzabcde"
-    4. Done! Every submission goes straight to your inbox.
-
-    File uploads: Formspree's free plan does not relay file attachments.
-    To receive uploaded documents, upgrade to Formspree Gold, OR instruct
-    applicants to also email documents to your address (add that
-    instruction by updating the text in the sidebar card below).
-    =====================================================================
-  -->
-
-  <div class="container" style="padding-top:0;">
-    <div class="application-layout">
-
-      <!-- FORM -->
-      <div>
-        <form
-          id="applicationForm"
-          action="https://api.web3forms.com/submit"
-          method="POST"
-          novalidate
-        >
-          <input type="hidden" name="access_key" value="af5b6ae0-8fb6-47f8-aa38-f5ac66b60512" />
-          <input type="hidden" name="_subject" value="New Scholarship Application — Dr. Uche Okereke Youth Educational Scholarship" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_replyto" id="_replyto" />
-
-          <div id="formContent">
-
-            <!-- Progress -->
-            <div class="form-progress" role="progressbar" aria-label="Application progress">
-              <div class="progress-step active">
-                <div class="progress-step__dot" title="Personal Info">1</div>
-                <div class="progress-step__line"></div>
-              </div>
-              <div class="progress-step">
-                <div class="progress-step__dot" title="Academic Info">2</div>
-                <div class="progress-step__line"></div>
-              </div>
-              <div class="progress-step">
-                <div class="progress-step__dot" title="Your Story">3</div>
-                <div class="progress-step__line"></div>
-              </div>
-              <div class="progress-step">
-                <div class="progress-step__dot" title="Documents">4</div>
-                <div class="progress-step__line" style="display:none;"></div>
-              </div>
-            </div>
-
-            <div class="application-form-wrap">
-
-              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px;">
-                <h2 class="form-title" style="font-size:clamp(1.4rem,3vw,2rem);min-width:0;">2026 Scholarship Application</h2>
-                <span id="stepIndicator" style="font-size:0.8rem;color:var(--text-muted);font-weight:500;white-space:nowrap;flex-shrink:0;margin-left:16px;">Step 1 of 4</span>
-              </div>
-              <p class="form-subtitle">Fields marked <span style="color:var(--vivid-purple);">*</span> are required. Allow enough time to complete.</p>
-
-
-              <!-- STEP 1: Personal Information -->
-              <div class="form-step">
-                <div class="form-section">
-                  <div class="form-section__title"><span class="section-icon">👤</span> Personal Information</div>
-
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="firstName">First Name <span class="required">*</span></label>
-                      <input type="text" id="firstName" name="First Name" required placeholder="e.g. Chukwuemeka" />
-                      <div class="error-msg"></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="lastName">Last Name <span class="required">*</span></label>
-                      <input type="text" id="lastName" name="Last Name" required placeholder="e.g. Okafor" />
-                      <div class="error-msg"></div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="email">Email Address <span class="required">*</span></label>
-                      <input type="email" id="email" name="Email" required placeholder="you@example.com" />
-                      <div class="error-msg"></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="phone">Phone Number <span class="required">*</span></label>
-                      <input type="tel" id="phone" name="Phone Number" required placeholder="+234 800 000 0000" />
-                      <div class="error-msg"></div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="dobDay">Date of Birth <span class="required">*</span></label>
-                      <div class="dob-row">
-                        <select id="dobDay" name="DOB Day" required aria-label="Day" data-dob-part="day">
-                          <option value="">Day</option>
-                        </select>
-                        <select id="dobMonth" name="DOB Month" required aria-label="Month" data-dob-part="month">
-                          <option value="">Month</option>
-                          <option value="01">January</option>
-                          <option value="02">February</option>
-                          <option value="03">March</option>
-                          <option value="04">April</option>
-                          <option value="05">May</option>
-                          <option value="06">June</option>
-                          <option value="07">July</option>
-                          <option value="08">August</option>
-                          <option value="09">September</option>
-                          <option value="10">October</option>
-                          <option value="11">November</option>
-                          <option value="12">December</option>
-                        </select>
-                        <select id="dobYear" name="DOB Year" required aria-label="Year" data-dob-part="year">
-                          <option value="">Year</option>
-                        </select>
-                      </div>
-                      <input type="hidden" id="dob" name="Date of Birth" />
-                      <div class="error-msg"></div>
-                      <div class="form-hint">You must be aged 17–25 at time of application</div>
-                    </div>
-                    <div class="form-group">
-                      <label for="gender">Gender</label>
-                      <select id="gender" name="Gender">
-                        <option value="">Select…</option>
-                        <option>Female</option>
-                        <option>Male</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="address">Home Address in Ovim <span class="required">*</span></label>
-                    <input type="text" id="address" name="Home Address" required placeholder="Street, community, local government area" />
-                    <div class="error-msg"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="ovimConnection">Describe Your Connection to Ovim <span class="required">*</span></label>
-                    <textarea id="ovimConnection" name="Connection to Ovim" required
-                      placeholder="Tell us how you are connected to the Ovim community (born there, family roots, current resident, etc.)"
-                      style="min-height:90px;"></textarea>
-                    <div class="error-msg"></div>
-                  </div>
-                </div>
-              </div><!-- /STEP 1 -->
-
-
-              <!-- STEP 2: Academic Information -->
-              <div class="form-step" style="display:none;">
-                <div class="form-section">
-                  <div class="form-section__title"><span class="section-icon">🎓</span> Academic Information</div>
-
-                  <div class="form-group">
-                    <label for="institution">Name of Nigerian Tertiary Institution <span class="required">*</span></label>
-                    <input type="text" id="institution" name="Institution" required placeholder="e.g. University of Nigeria, Nsukka" />
-                    <div class="error-msg"></div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="courseOfStudy">Course of Study <span class="required">*</span></label>
-                      <input type="text" id="courseOfStudy" name="Course of Study" required placeholder="e.g. Medicine and Surgery" />
-                      <div class="error-msg"></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="enrollmentStatus">Enrollment Status <span class="required">*</span></label>
-                      <select id="enrollmentStatus" name="Enrollment Status" required>
-                        <option value="">Select…</option>
-                        <option>I have been offered admission (not yet started)</option>
-                        <option>I am currently in my first year</option>
-                      </select>
-                      <div class="error-msg"></div>
-                    </div>
-                  </div>
-
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="faculty">Faculty / Department <span class="required">*</span></label>
-                      <input type="text" id="faculty" name="Faculty" required placeholder="e.g. Faculty of Engineering" />
-                      <div class="error-msg"></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="expectedGrad">Expected Year of Graduation <span class="required">*</span></label>
-                      <select id="expectedGrad" name="Expected Graduation Year" required>
-                        <option value="">Select…</option>
-                        <option>2027</option>
-                        <option>2028</option>
-                        <option>2029</option>
-                        <option>2030</option>
-                        <option>2031</option>
-                        <option>2032</option>
-                      </select>
-                      <div class="error-msg"></div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="waecResults">WAEC / O-Level Results Summary <span class="required">*</span></label>
-                    <textarea id="waecResults" name="WAEC Results Summary" required
-                      placeholder="List your WAEC or equivalent results (subject and grade), e.g. Mathematics — A1, English Language — B2, etc."
-                      style="min-height:100px;"></textarea>
-                    <div class="error-msg"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="otherAchievements">Other Academic Achievements (Optional)</label>
-                    <textarea id="otherAchievements" name="Other Achievements"
-                      placeholder="Any awards, distinctions, clubs, leadership positions, or notable extracurricular activities"
-                      style="min-height:80px;"></textarea>
-                  </div>
-                </div>
-              </div><!-- /STEP 2 -->
-
-
-              <!-- STEP 3: Personal Story & Hardship -->
-              <div class="form-step" style="display:none;">
-                <div class="form-section">
-                  <div class="form-section__title"><span class="section-icon">💬</span> Your Story &amp; Circumstances</div>
-
-                  <div class="form-group">
-                    <label>Nature of Financial Hardship <span class="required">*</span></label>
-                    <div class="radio-group">
-                      <label class="radio-item">
-                        <input type="radio" name="Hardship Type" value="Loss of a parent" required />
-                        Loss of a parent
-                      </label>
-                      <label class="radio-item">
-                        <input type="radio" name="Hardship Type" value="Displacement" />
-                        Displacement
-                      </label>
-                      <label class="radio-item">
-                        <input type="radio" name="Hardship Type" value="Family crisis" />
-                        Family crisis
-                      </label>
-                      <label class="radio-item">
-                        <input type="radio" name="Hardship Type" value="Extreme poverty / low household income" />
-                        Extreme poverty / very low household income
-                      </label>
-                      <label class="radio-item">
-                        <input type="radio" name="Hardship Type" value="Other significant hardship" />
-                        Other significant hardship (describe in your personal statement)
-                      </label>
-                    </div>
-                    <div class="error-msg" id="hardshipErr"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="personalStatement">Personal Statement <span class="required">*</span></label>
-                    <textarea id="personalStatement" name="Personal Statement" required
-                      placeholder="Tell us about yourself, your background, the challenges you have faced, your academic goals, and why you are applying for this scholarship. Also describe how you plan to give back to the Ovim community. (600-800 words)"
-                      style="min-height:240px;"></textarea>
-                    <div class="error-msg"></div>
-                    <div class="form-hint" id="wordCountHint">Required: 600–800 words &nbsp;·&nbsp; <span id="wordCountDisplay">0 words</span></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="communityPlan">How Will You Give Back to Ovim? <span class="required">*</span></label>
-                    <textarea id="communityPlan" name="Community Giving Back Plan" required
-                      placeholder="Describe specific ways you intend to volunteer and contribute to the Ovim community during and after your studies."
-                      style="min-height:110px;"></textarea>
-                    <div class="error-msg"></div>
-                  </div>
-
-                  <!-- References -->
-                  <div style="margin-top:32px;">
-                    <div class="form-section__title" style="margin-bottom:20px;"><span class="section-icon">✉️</span> Two Recommendations</div>
-                    <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:20px;">Provide two people who can speak to your character and potential — teachers, mentors, religious leaders, or community leaders.</p>
-
-                    <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:16px;">
-                      <div style="font-weight:700;font-size:0.85rem;color:var(--text-dark);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.06em;">Recommendation 1</div>
-                      <div class="form-row">
-                        <div class="form-group">
-                          <label for="ref1Name">Full Name <span class="required">*</span></label>
-                          <input type="text" id="ref1Name" name="Recommender 1 Name" required placeholder="Full name" />
-                          <div class="error-msg"></div>
-                        </div>
-                        <div class="form-group">
-                          <label for="ref1Role">Role / Relationship <span class="required">*</span></label>
-                          <input type="text" id="ref1Role" name="Recommender 1 Role" required placeholder="e.g. Secondary school teacher" />
-                          <div class="error-msg"></div>
-                        </div>
-                      </div>
-                      <div class="form-group" style="margin-bottom:0;">
-                        <label for="ref1Contact">Phone or Email <span class="required">*</span></label>
-                        <input type="text" id="ref1Contact" name="Recommender 1 Contact" required placeholder="Phone number or email address" />
-                        <div class="error-msg"></div>
-                      </div>
-                    </div>
-
-                    <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;">
-                      <div style="font-weight:700;font-size:0.85rem;color:var(--text-dark);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.06em;">Recommendation 2</div>
-                      <div class="form-row">
-                        <div class="form-group">
-                          <label for="ref2Name">Full Name <span class="required">*</span></label>
-                          <input type="text" id="ref2Name" name="Recommender 2 Name" required placeholder="Full name" />
-                          <div class="error-msg"></div>
-                        </div>
-                        <div class="form-group">
-                          <label for="ref2Role">Role / Relationship <span class="required">*</span></label>
-                          <input type="text" id="ref2Role" name="Recommender 2 Role" required placeholder="e.g. Community leader" />
-                          <div class="error-msg"></div>
-                        </div>
-                      </div>
-                      <div class="form-group" style="margin-bottom:0;">
-                        <label for="ref2Contact">Phone or Email <span class="required">*</span></label>
-                        <input type="text" id="ref2Contact" name="Recommender 2 Contact" required placeholder="Phone number or email address" />
-                        <div class="error-msg"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div><!-- /STEP 3 -->
-
-
-              <!-- STEP 4: Documents -->
-              <div class="form-step" style="display:none;">
-                <div class="form-section">
-                  <div class="form-section__title"><span class="section-icon">📎</span> Supporting Documents</div>
-
-                  <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:24px;">
-                    Upload your documents below. <strong style="color:var(--deep-navy);">Please name each uploaded file with your full name and the document name. <br> Format: FirstName LastName - Document Name</strong> <br> Accepted formats: PDF, JPG, PNG. Max 10 MB per file.
-                    <strong style="color:var(--deep-navy);">NOTE:</strong> Failure to submit all required documents will result in automatic disqualification.
-                  </p>
-
-                  <!-- Hidden inputs — JS fills these with Bytescale URLs before submit -->
-                  <input type="hidden" id="ucAdmissionUrl"  name="Document — Admission Letter URL" />
-                  <input type="hidden" id="ucAcademicUrl"   name="Document — Academic Records URL" />
-                  <input type="hidden" id="ucHardshipUrl"   name="Document — Hardship Proof URL" />
-                  <input type="hidden" id="ucIdUrl"         name="Document — Valid ID URL" />
-                  <input type="hidden" id="ucPassportUrl"   name="Document — Passport Photo URL" />
-
-                  <!-- Upload fields -->
-                  <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:32px;">
-
-                    <!-- Admission letter -->
-                    <div class="form-group bs-upload-group" id="grp-admission">
-                      <label>
-                        Admission Letter / Proof of Enrollment
-                        <span class="required">*</span>
-                      </label>
-                      <p style="font-size:0.82rem;color:var(--text-muted);margin:4px 0 10px;">Admission offer letter or proof of first-year enrollment</p>
-                      <button type="button" class="btn btn--outline bs-upload-btn" id="btn-admission" data-target="ucAdmissionUrl" data-group="grp-admission">📎 Choose File</button>
-                      <div class="bs-upload-status" id="status-admission"></div>
-                      <div class="error-msg"></div>
-                    </div>
-
-                    <!-- Academic records -->
-                    <div class="form-group bs-upload-group" id="grp-academic">
-                      <label>
-                        Academic Records
-                        <span class="required">*</span>
-                      </label>
-                      <p style="font-size:0.82rem;color:var(--text-muted);margin:4px 0 10px;">WAEC / NECO result slip or certificate</p>
-                      <button type="button" class="btn btn--outline bs-upload-btn" id="btn-academic" data-target="ucAcademicUrl" data-group="grp-academic">📎 Choose File</button>
-                      <div class="bs-upload-status" id="status-academic"></div>
-                      <div class="error-msg"></div>
-                    </div>
-
-                    <!-- Hardship proof -->
-                    <div class="form-group bs-upload-group" id="grp-hardship">
-                      <label>
-                        Proof of Financial Hardship
-                        <span class="required">*</span>
-                      </label>
-                      <p style="font-size:0.82rem;color:var(--text-muted);margin:4px 0 10px;">e.g. parent's death certificate, hospital bill, displacement record</p>
-                      <button type="button" class="btn btn--outline bs-upload-btn" id="btn-hardship" data-target="ucHardshipUrl" data-group="grp-hardship">📎 Choose File</button>
-                      <div class="bs-upload-status" id="status-hardship"></div>
-                      <div class="error-msg"></div>
-                    </div>
-
-                    <!-- Valid ID (optional) -->
-                    <div class="form-group bs-upload-group" id="grp-id">
-                      <label>Valid ID <em style="font-weight:400;color:var(--text-muted);">(recommended)</em></label>
-                      <p style="font-size:0.82rem;color:var(--text-muted);margin:4px 0 10px;">National ID, birth certificate, or school ID</p>
-                      <button type="button" class="btn btn--outline bs-upload-btn" id="btn-id" data-target="ucIdUrl" data-group="grp-id">📎 Choose File</button>
-                      <div class="bs-upload-status" id="status-id"></div>
-                    </div>
-
-                    <!-- Passport photo -->
-                    <div class="form-group bs-upload-group" id="grp-passport">
-                      <label>Decent Coloured Passport Photograph <span class="required">*</span></label>
-                      <p style="font-size:0.82rem;color:var(--text-muted);margin:4px 0 10px;">A recent clear passport-sized photo with plain background</p>
-                      <button type="button" class="btn btn--outline bs-upload-btn" id="btn-passport" data-target="ucPassportUrl" data-group="grp-passport" data-images-only="true">📎 Choose File</button>
-                      <div class="bs-upload-status" id="status-passport"></div>
-                      <div class="error-msg"></div>
-                    </div>
-
-                  </div>
-
-                  <!-- Consent -->
-                  <div class="form-group" style="margin-top:32px;">
-                    <div class="checkbox-group" data-required="true">
-                      <label class="checkbox-item">
-                        <input type="checkbox" name="Consent — Truthful Information" value="yes" required />
-                        <span>I confirm that all information and documents submitted in this application are true, accurate, and authentic. I understand that submitting false or fraudulent information will result in immediate disqualification and may affect future applications. <span class="required">*</span></span>
-                      </label>
-                    </div>
-                    <div class="error-msg"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="checkbox-group" data-required="true">
-                      <label class="checkbox-item">
-                        <input type="checkbox" name="Consent — Community Service" value="yes" required />
-                        <span>I understand that receipt of this scholarship requires participation in community outreach in Ovim and compliance with all scholarship conditions. <span class="required">*</span></span>
-                      </label>
-                    </div>
-                    <div class="error-msg"></div>
-                  </div>
-
-                </div>
-              </div><!-- /STEP 4 -->
-
-              <div class="form-submit-area">
-                <button type="button" id="prevStep" class="btn btn--outline" style="display:none;">← Back</button>
-                <button type="button" id="nextStep" class="btn btn--primary">Continue →</button>
-                <button type="button" id="submitForm" class="btn btn--primary" style="display:none;">Submit Application</button>
-              </div>
-
-            </div><!-- /application-form-wrap -->
-          </div><!-- /formContent -->
-
-          <!-- Success screen -->
-          <div id="successMessage" class="success-message">
-            <div class="success-message__icon">🎉</div>
-            <h2>Application Submitted!</h2>
-            <p>
-              Thank you for applying for the Dr. Uche Okereke Youth Educational Scholarship.
-              Your application and documents have been received and will be reviewed by the selection committee.
-            </p>
-            <p style="font-size:0.85rem;color:var(--text-muted);margin-top:12px;margin-bottom:28px;">
-              <strong>Award announcements:</strong> October 15, 2026
-            </p>
-            <a href="/" class="btn btn--outline">← Back to Home</a>
-          </div>
-
-          <!-- Deadline-closed screen (shown automatically by JS once the deadline passes) -->
-          <div id="closedMessage" class="success-message" style="display:none;">
-            <div class="success-message__icon">⏰</div>
-            <h2>Applications Are Closed</h2>
-            <p>
-              The application window for the Dr. Uche Okereke Youths Educational Scholarship has closed.
-              Thank you to everyone who applied — the selection committee will review submissions and announce awardees soon.
-            </p>
-            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:28px;">
-              Questions? Email
-              <a href="mailto:contact@docucfoundation.org" style="color:var(--vivid-purple);">contact@docucfoundation.org</a>
-            </p>
-            <a href="/" class="btn btn--outline">← Back to Home</a>
-          </div>
-
-        </form>
-      </div>
-
-
-      <!-- SIDEBAR -->
-      <aside class="application-sidebar">
-
-        <div class="sidebar-card sidebar-card--cta">
-          <div class="sidebar-card__title">🗓️ Application Deadline</div>
-          <div class="deadline-date">September 30, 2026</div>
-          <div class="deadline-label">Applications Close</div>
-          <p style="margin-top:16px;">Award decisions announced October 15, 2026. Late applications will not be reviewed.</p>
-        </div>
-
-        <div class="sidebar-card">
-          <div class="sidebar-card__title">✅ Before You Apply</div>
-          <div class="requirements-list">
-            <div class="req-item">
-              <span class="req-check">✓</span>
-              <span class="req-text">You are aged 17–25 and from Ovim</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check">✓</span>
-              <span class="req-text">You have gained admission or are in first year at a Nigerian tertiary institution</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check">✓</span>
-              <span class="req-text">You are experiencing significant financial hardship</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check">✓</span>
-              <span class="req-text">You are committed to giving back to Ovim</span>
-            </div>
-            <div class="req-item">
-              <span class="req-check">✓</span>
-              <span class="req-text">You have your documents ready (Academic results, hardship proof, ID)</span>
-            </div>
-          </div>
-          <a href="/scholarship#requirements" style="display:inline-block;margin-top:16px;font-size:0.85rem;color:var(--vivid-purple);font-weight:600;">Full requirements →</a>
-        </div>
-
-        <div class="sidebar-card">
-          <div class="sidebar-card__title">📄 What You'll Need</div>
-          <div class="requirements-list">
-            <div class="req-item"><span class="req-check">📋</span><span class="req-text">Personal Statement (600-800 words) — in the form</span></div>
-            <div class="req-item"><span class="req-check">✉️</span><span class="req-text">Two recommenders — in the form</span></div>
-            <div class="req-item"><span class="req-check">🏫</span><span class="req-text">Admission letter or enrollment proof — uploaded in Step 4</span></div>
-            <div class="req-item"><span class="req-check">📊</span><span class="req-text">O-Level results / Transcript — uploaded in Step 4</span></div>
-            <div class="req-item"><span class="req-check">💸</span><span class="req-text">Proof of hardship — uploaded in Step 4</span></div>
-            <div class="req-item"><span class="req-check">🪪</span><span class="req-text">Valid ID (recommended) — uploaded in Step 4</span></div>
-            <div class="req-item"><span class="req-check">🖼️</span><span class="req-text">Passport photograph — uploaded in Step 4</span></div>
-          </div>
-        </div>
-
-        <div class="sidebar-card">
-          <div class="sidebar-card__title">❓ Need Help?</div>
-          <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:16px;">Questions about your eligibility or the process? Reach out before the deadline.</p>
-          <a href="/contact" class="btn btn--outline" style="width:100%;justify-content:center;display:flex;">Contact Us</a>
-        </div>
-
-      </aside>
+  <div class="page-hero">
+    <div class="container">
+      <p class="eyebrow eyebrow--white">2026 Scholarship Cycle</p>
+      <h1>Applications Are Closed</h1>
+      <p>Thank you for your interest in the Dr. Uche Okereke Youth Educational Scholarship.</p>
     </div>
   </div>
 
+  <section class="section">
+    <div class="container">
+      <div class="awardee-soon fade-up">
+        <div class="awardee-soon__icon">💜</div>
+        <h2 style="font-size:1.6rem;margin-bottom:16px;">Thank You to Every Applicant</h2>
+        <p style="margin-bottom:28px;">We are no longer accepting applications for 2026. We were moved by the stories and ambition of the young people of Ovim who applied. To hear when the next cycle opens, send us a message and choose &ldquo;Notify Me About the Next Cycle.&rdquo;</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="/awardees" class="btn btn--primary">2026 Awardees →</a>
+          <a href="/contact" class="btn btn--outline">Notify Me About Next Cycle</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer" style="margin-top:80px;">
+
+  <!-- FOOTER -->
+  <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -576,7 +72,7 @@
             <li><a href="/about">About</a></li>
             <li><a href="/scholarship">Scholarship</a></li>
             <li><a href="/donate">Donate</a></li>
-            <li><a href="/contact">Contact</a></li>
+        <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
         <div>
@@ -585,7 +81,7 @@
             <li><a href="/scholarship">Award Details</a></li>
             <li><a href="/scholarship#requirements">Requirements</a></li>
             <li><a href="/scholarship#expectations">Awardee Expectations</a></li>
-            <li><a href="/application">Apply Now</a></li>
+            <li><a href="/awardees">2026 Awardees</a></li>
           </ul>
         </div>
         <div>
@@ -598,7 +94,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Dr. Uche Okereke Youth Educational Scholarship. All rights reserved.</p>
+        <p>© 2026 Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation. All rights reserved.</p>
         <!--<div class="social-links">
           <a href="#" class="social-link" aria-label="Facebook">f</a>
           <a href="#" class="social-link" aria-label="Instagram">in</a>

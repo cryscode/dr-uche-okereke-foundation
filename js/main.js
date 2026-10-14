@@ -1,5 +1,5 @@
 /* ============================================================
-   SCHOLARSHIP FOUNDATION — Main JavaScript
+   SCHOLARSHIP FOUNDATION - Main JavaScript
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   /* ======================================================
-     4. APPLICATION FORM — Multi-step & Validation
+     4. APPLICATION FORM - Multi-step & Validation
   ====================================================== */
   const applicationForm = document.getElementById('applicationForm');
 
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dobDay.appendChild(opt);
       }
 
-      // Populate Year — full range, newest first, no artificial age limiting
+      // Populate Year - full range, newest first, no artificial age limiting
       const currentYear = new Date().getFullYear();
       const earliestYear = currentYear - 100;
       for (let y = currentYear; y >= earliestYear; y--) {
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // --- Text / email / tel / select / textarea fields ---
       step.querySelectorAll('input[required], select[required], textarea[required]').forEach(function (field) {
-        // Skip checkboxes and radios — handled separately below
+        // Skip checkboxes and radios - handled separately below
         if (field.type === 'checkbox' || field.type === 'radio') return;
 
         const group = field.closest('.form-group');
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showToast('Something went wrong. Please try again or email us at contact@docucfoundation.org', 'error');
           });
         } else {
-          // Form endpoint is not configured — surface the error immediately rather than
+          // Form endpoint is not configured - surface the error immediately rather than
           // silently swallowing submissions.
           submitBtn.disabled = false;
           submitBtn.textContent = 'Submit Application';
@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Bytescale upload buttons ---
     // ====================================================
-    // BYTESCALE API KEY — REPLACE BEFORE GOING LIVE
+    // BYTESCALE API KEY - REPLACE BEFORE GOING LIVE
     // Sign up at https://www.bytescale.com/get-started, then
     // copy your PUBLIC key (starts with "public_") from the
     // dashboard and paste it below. Never use a secret key here.
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
           Bytescale.UploadWidget.open(options).then(
             function (files) {
               if (!files || files.length === 0) {
-                // User closed the modal without selecting a file — leave existing value as-is.
+                // User closed the modal without selecting a file - leave existing value as-is.
                 return;
               }
               var hidden = document.getElementById(cfg.hiddenId);
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
               }
             },
             function () {
-              // Upload failed or was cancelled with an error — clear the hidden field so
+              // Upload failed or was cancelled with an error - clear the hidden field so
               // validation correctly catches it and prompts the user to re-upload.
               var hidden = document.getElementById(cfg.hiddenId);
               if (hidden) hidden.value = '';
@@ -462,11 +462,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateUploads() {
       // If the Bytescale widget script failed to load (network issue, blocked script, etc.)
       // we cannot show upload buttons at all. Rather than permanently blocking every
-      // applicant, we skip upload validation and let them submit — the confirmation
+      // applicant, we skip upload validation and let them submit - the confirmation
       // email will instruct them to send documents separately (see contact page).
       if (!bytescaleAvailable) {
         showToast('Upload widgets could not load. Please email your documents to contact@docucfoundation.org', 'error');
-        // Return true so the form is not hard-blocked — submission still goes through.
+        // Return true so the form is not hard-blocked - submission still goes through.
         return true;
       }
 
@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
           btn.textContent = 'Send Message →';
         });
       } else {
-        // Contact form endpoint not configured — show a real error, not a fake success.
+        // Contact form endpoint not configured - show a real error, not a fake success.
         btn.disabled = false;
         btn.textContent = 'Send Message →';
         showToast('Form not configured. Please email us at contact@docucfoundation.org', 'error');
@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var href = this.getAttribute('href');
-      if (!href || href === '#') return; // bare # — let the browser handle it (no-op)
+      if (!href || href === '#') return; // bare # - let the browser handle it (no-op)
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();

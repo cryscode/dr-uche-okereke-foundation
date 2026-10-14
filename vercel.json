@@ -4,6 +4,7 @@
     { "source": "/scholarship",  "destination": "/scholarship.html" },
     { "source": "/application",  "destination": "/application.html" },
     { "source": "/donate",       "destination": "/donate.html" },
-    { "source": "/contact",      "destination": "/contact.html" }
+    { "source": "/contact",      "destination": "/contact.html" },
+    { "source": "/awardees",     "destination": "/awardees.html" }
   ]
 }

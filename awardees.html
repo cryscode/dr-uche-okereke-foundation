@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 Awardees | Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation</title>
+  <meta property="og:site_name" content="Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation">
+  <meta name="description" content="Meet the 2026 awardees of the Dr. Uche Okereke Youth Educational Scholarship." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <img src="/assets/duof-logo.png" alt="Dr Uche Okereke Foundation" class="nav-logo__full">
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/scholarship">Scholarship</a></li>
+        <li><a href="/donate">Donate</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/awardees" class="btn btn--primary active">2026 Awardees</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="eyebrow eyebrow--white">Class of 2026</p>
+      <h1>Meet the 2026 Awardees</h1>
+      <p>Congratulations to the inaugural scholars of the Dr. Uche Okereke Youth Educational Scholarship.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div id="awardeeSoon" class="awardee-soon fade-up" style="display:none;">
+        <div class="awardee-soon__icon">🎓</div>
+        <h2 style="font-size:1.6rem;margin-bottom:12px;">Awardees Announced October 15</h2>
+        <p style="color:var(--text-muted);">Check back on October 15, 2026 to meet the inaugural scholars.</p>
+      </div>
+
+      <div id="awardeeIntro" style="display:none;text-align:center;max-width:640px;margin:0 auto;">
+        <p class="eyebrow">Inaugural Cohort</p>
+        <h2>Our Scholars</h2>
+        <p>Selected from a competitive pool of applicants based on hardship, personal story, academic potential, and commitment to Ovim.</p>
+      </div>
+      <div id="awardeeGrid" class="awardee-grid"></div>
+
+      <div style="text-align:center;margin-top:56px;">
+        <a href="/donate" class="btn btn--primary">Support the Next Cohort →</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="margin-bottom:12px;">
+            <img src="/assets/duof-logo.png" alt="Dr Uche Okereke Foundation" class="nav-logo__full">
+          </div>
+          <p>A need-based scholarship initiative supporting Ovim youths from low-income backgrounds aimed at building future-ready, socially conscious leaders.</p>
+        </div>
+        <div>
+          <div class="footer-col__title">Navigate</div>
+          <ul class="footer-col__links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/scholarship">Scholarship</a></li>
+            <li><a href="/donate">Donate</a></li>
+        <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title">Scholarship</div>
+          <ul class="footer-col__links">
+            <li><a href="/scholarship">Award Details</a></li>
+            <li><a href="/scholarship#requirements">Requirements</a></li>
+            <li><a href="/scholarship#expectations">Awardee Expectations</a></li>
+            <li><a href="/awardees">2026 Awardees</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col__title">Get Involved</div>
+          <ul class="footer-col__links">
+            <li><a href="/contact">Partner With Us</a></li>
+            <li><a href="/donate">Make a Donation</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation. All rights reserved.</p>
+        <!--<div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">f</a>
+          <a href="#" class="social-link" aria-label="Instagram">in</a>
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+        </div>-->
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /* ==========================================================
+       AWARDEES: edit this list on October 15, 2026.
+       - name, community, course, school: shown on the card
+       - photo:  optional, e.g. "/assets/awardees/ada-o.jpg". Leave "" to show initials.
+       Until the release time below, visitors see the "coming soon" message.
+       NOTE: names in this file are public in the page source once deployed,
+       so add them only when you are ready to publish.
+       ========================================================== */
+    var RELEASE_AT = '2026-10-15T08:00:00+01:00';
+    var AWARDEES = [
+      // { name: 'Full Name', community: 'Village / Community', course: 'Course of Study', school: 'University', photo: '/assets/awardees/full-name.jpg' },
+    ];
+
+    (function () {
+      var live = AWARDEES.length > 0 && new Date() >= new Date(RELEASE_AT);
+      document.getElementById('awardeeSoon').style.display  = live ? 'none' : '';
+      document.getElementById('awardeeIntro').style.display = live ? '' : 'none';
+      if (!live) return;
+      var grid = document.getElementById('awardeeGrid');
+      AWARDEES.forEach(function (a) {
+        var card = document.createElement('div');
+        card.className = 'awardee-card';
+        var visual;
+        if (a.photo) {
+          visual = document.createElement('img');
+          visual.className = 'awardee-card__photo';
+          visual.src = a.photo;
+          visual.alt = a.name;
+          visual.loading = 'lazy';
+        } else {
+          visual = document.createElement('div');
+          visual.className = 'awardee-card__initials';
+          visual.textContent = a.name.split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+        }
+        var h = document.createElement('h3'); h.textContent = a.name;
+        var m = document.createElement('div'); m.className = 'awardee-card__community'; m.textContent = a.community ? '📍 ' + a.community : '';
+        var c = document.createElement('div'); c.className = 'awardee-card__course'; c.textContent = a.course || '';
+        var s = document.createElement('div'); s.className = 'awardee-card__school'; s.textContent = a.school || '';
+        [visual, h, m, c, s].forEach(function (el) { card.appendChild(el); });
+        grid.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>
