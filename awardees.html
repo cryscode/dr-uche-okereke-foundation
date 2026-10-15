@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2026 Awardees | Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation</title>
   <meta property="og:site_name" content="Dr Uchechi Okereke Scholarship and Youth Empowerment Foundation">
-  <meta name="description" content="Meet the 2026 awardees of the Dr. Uche Okereke Youth Educational Scholarship." />
+  <meta name="description" content="Meet the 2026 awardees of the Dr. Uchechi Okereke Scholarship and Youth Empowerment Foundation." />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Awardees grid: 3 across on desktop (3 + 3 for six awardees), 2 on tablet, 1 on phone */
+    .awardee-grid { grid-template-columns: repeat(3, 1fr); max-width: 1000px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 900px) { .awardee-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .awardee-grid { grid-template-columns: 1fr; } }
+  </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 </head>
@@ -15,7 +21,7 @@
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
       <a href="/" class="nav-logo">
-        <img src="/assets/duof-logo.png" alt="Dr Uche Okereke Foundation" class="nav-logo__full">
+        <img src="/assets/duof-logo.png" alt="Dr. Uchechi Okereke Scholarship and Youth Empowerment Foundation" class="nav-logo__full">
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -36,14 +42,13 @@
     <div class="container">
       <p class="eyebrow eyebrow--white">Class of 2026</p>
       <h1>Meet the 2026 Awardees</h1>
-      <p>Congratulations to the inaugural scholars of the Dr. Uche Okereke Youth Educational Scholarship.</p>
+      <p>Congratulations to the inaugural scholars of the Dr. Uchechi Okereke Scholarship and Youth Empowerment Foundation.</p>
     </div>
   </div>
 
   <section class="section">
     <div class="container">
       <div id="awardeeSoon" class="awardee-soon fade-up" style="display:none;">
-        <!--<div class="awardee-soon__icon">🎓</div>-->
         <h2 style="font-size:1.6rem;margin-bottom:12px;">Awardees Announced October 15</h2>
         <p style="color:var(--text-muted);">Check back on October 15, 2026 to meet the inaugural scholars.</p>
       </div>
@@ -124,10 +129,18 @@
     var RELEASE_AT = '2026-10-15T08:00:00+01:00';
     var AWARDEES = [
       // { name: 'Full Name', community: 'Village / Community', course: 'Course of Study', school: 'University', photo: '/assets/awardees/full-name.jpg' },
+      { name: 'Chioma Elekwachi', community: 'Amaeke', course: 'English and Literary Studies', school: 'University of Nigeria, Nsukka', photo: '/assets/awardees/chioma-elekwachi.jpg' },
+      { name: 'Chinyere Chinagorom Joy', community: 'Ohonja', course: 'Accounting', school: 'Michael Okpara University of Agriculture, Umudike', photo: '/assets/awardees/chinyere-joy.jpg' },
+      { name: 'Onyebuchi Darlington Nlewedum', community: 'Obayi', course: 'Nursing', school: 'Abia State University, Uturu', photo: '/assets/awardees/onyebuchi-nlewedum.jpg' },
+      { name: 'Chukwuebuka Benjamin', community: 'Obayi', course: 'Radiography', school: 'Nnamdi Azikiwe University, Anambra', photo: '/assets/awardees/chukwuebuka-benjamin.jpg' },
+      { name: 'Onwumere Nmesoma', community: 'Amune', course: 'Accounting', school: 'Michael Okpara University of Agriculture, Umudike', photo: '/assets/awardees/onwumere-nmesoma.jpg' },
+      { name: 'Ngozi Nwachukwu', community: 'Ohoroho', course: 'Science Laboratory Technology', school: 'Federal Polytechnic, Nkede', photo: '/assets/awardees/ngozi-nwachukwu.jpg' }
     ];
 
     (function () {
-      var live = AWARDEES.length > 0 && new Date() >= new Date(RELEASE_AT);
+      // var live = AWARDEES.length > 0 && new Date() >= new Date(RELEASE_AT);
+      var preview = /[?&]preview=1/.test(location.search);
+      var live = AWARDEES.length > 0 && (preview || new Date() >= new Date(RELEASE_AT));
       document.getElementById('awardeeSoon').style.display  = live ? 'none' : '';
       document.getElementById('awardeeIntro').style.display = live ? '' : 'none';
       if (!live) return;
@@ -148,7 +161,7 @@
           visual.textContent = a.name.split(/\s+/).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
         }
         var h = document.createElement('h3'); h.textContent = a.name;
-        var m = document.createElement('div'); m.className = 'awardee-card__community'; m.textContent = a.community ? '📍 ' + a.community : '';
+        var m = document.createElement('div'); m.className = 'awardee-card__community'; if (a.community) { m.innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>'; m.appendChild(document.createTextNode(' ' + a.community)); }
         var c = document.createElement('div'); c.className = 'awardee-card__course'; c.textContent = a.course || '';
         var s = document.createElement('div'); s.className = 'awardee-card__school'; s.textContent = a.school || '';
         [visual, h, m, c, s].forEach(function (el) { card.appendChild(el); });
